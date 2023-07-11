@@ -1,4 +1,4 @@
-package com.example.LearningSpringWeb;
+package com.example.BookCatalogueApplication;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

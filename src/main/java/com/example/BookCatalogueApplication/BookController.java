@@ -1,4 +1,4 @@
-package com.example.LearningSpringWeb;
+package com.example.BookCatalogueApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

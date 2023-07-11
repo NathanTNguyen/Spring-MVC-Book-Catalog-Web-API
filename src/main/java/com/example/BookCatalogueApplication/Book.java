@@ -1,4 +1,4 @@
-package com.example.LearningSpringWeb;
+package com.example.BookCatalogueApplication;
 
 public class Book {
     private int id;
