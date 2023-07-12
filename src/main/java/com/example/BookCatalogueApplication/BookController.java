@@ -3,6 +3,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookController {
@@ -11,6 +12,13 @@ public class BookController {
     @GetMapping("/books")
     public List<Book> getAllBooks() {
         return books;
+    }
+
+    @GetMapping("/books/search")
+    public List<Book> searchBookName(@RequestParam String bookName) {
+        return books.stream()
+                .filter(book -> book.getTitle().toLowerCase().contains(bookName.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/books")
