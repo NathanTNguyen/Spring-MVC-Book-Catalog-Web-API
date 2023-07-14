@@ -1,5 +1,6 @@
 package com.example.BookCatalogueApplication;
 import org.springframework.web.bind.annotation.*;
+import com.example.BookCatalogueApplication.exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class BookController {
     }
 
     //search books by book name
-    @GetMapping("/books/search")
+    @GetMapping("/books/search/ByName")
     public List<Book> searchBookName(@RequestParam String bookName) {
         return books.stream()
                 .filter(book -> book.getTitle().toLowerCase().contains(bookName.toLowerCase()))
@@ -24,7 +25,7 @@ public class BookController {
     }
 
     //search books by author name
-    @GetMapping("/books/search")
+    @GetMapping("/books/search/ByAuthor")
     public List<Book> searchAuthor(@RequestParam String authorName) {
         return books.stream()
                 .filter(book -> book.getAuthor().toLowerCase().contains(authorName.toLowerCase()))
@@ -40,14 +41,19 @@ public class BookController {
     //edit book information by ID identification
     @PutMapping("/books/{id}")
     public void editBook(@PathVariable int id, @RequestBody Book updatedBook) {
-        books.removeIf(book -> book.getId() == id);
+        //if inputted ID is not found throws BookNotFoundException
+        if (!books.removeIf(book -> book.getId() == id)) {
+            throw new BookNotFoundException("Book with ID " + id + " not found");
+        }
         books.add(updatedBook);
     }
 
     //delete book by id
     @DeleteMapping("/books/{id}")
     public void deleteBook(@PathVariable int id) {
-        books.removeIf(book -> book.getId() == id);
+        if (!books.removeIf(book -> book.getId() == id)) {
+            throw new BookNotFoundException("Book with ID " + id + " not found");
+        }
     }
 
 }
