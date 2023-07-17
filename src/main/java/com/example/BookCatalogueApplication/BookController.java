@@ -51,6 +51,7 @@ public class BookController {
     //delete book by id
     @DeleteMapping("/books/{id}")
     public void deleteBook(@PathVariable int id) {
+        //if inputted ID is not found throws BookNotFoundException
         if (!books.removeIf(book -> book.getId() == id)) {
             throw new BookNotFoundException("Book with ID " + id + " not found");
         }
